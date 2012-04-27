@@ -19,10 +19,10 @@ my_log = Cabrillo.parse_file(path_to_log)
 ### Examples
 
 ```ruby
-1.9.3p0 :077 > log = Cabrillo.parse_file('../test/data/cabrillo1.cabrillo')
+>> log = Cabrillo.parse_file('../test/data/cabrillo1.cabrillo')
  => #<Cabrillo:0x00000002ea9c58 @version="3.0", @created_by="WavePower 1.0", @contest="WAEDC", @callsign="W8UPD", @claimed_score="1234", @club="University of Akron", @name="Ricky Elrod">
  
-1.9.3p0 :085 > log.to_hash
+>> log.to_hash
  => {:version=>"3.0", :created_by=>"WavePower 1.0", :contest=>"WAEDC", :callsign=>"W8UPD", :claimed_score=>"1234", :club=>"University of Akron", :name=>"Ricky Elrod"} 
 ```
 
@@ -40,10 +40,12 @@ each backwards-incompatible change in the spec will result in us
 bumping the major version of the gem.
 
 We make a few (slight) differences in our parsing.
-To start with, **any line beginning with a `#`, or `//` is parsed as a
+
+To start with, **any line beginning with a `#` or `//` is parsed as a
 comment.**
 
-Lines parsed as comments have no effect on the generated Cabrillo log.
+Lines parsed as comments have no effect on the parsed Cabrillo log. They are
+totally ignored and skipped over as if they were a blank line.
 
 Cabrillo (the gem) will never add comments to Cabrillo files on its own because
 they are not officially part of the spec.
@@ -61,6 +63,7 @@ that you add.
 
 This library is released under the MIT license
 
+```
 Copyright (c) 2012-present Ricky Elrod <ricky@elrod.me>
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -79,3 +82,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+```
