@@ -46,6 +46,7 @@ class Cabrillo
     @claimed_score = options[:claimed_score]
     @club          = options[:club]
     @name          = options[:name]
+    @soapbox       = options[:soapbox]
   end
 
   # Public: Return the collected data as a Hash.
@@ -84,6 +85,21 @@ class Cabrillo
         cabrillo_info.merge! split_basic_line(line, 'CLAIMED-SCORE', :claimed_score)
         cabrillo_info.merge! split_basic_line(line, 'CLUB', :club)
         cabrillo_info.merge! split_basic_line(line, 'NAME', :name)
+
+
+        # SOAPBOX comments - they can appear multiple times.
+        line_key, line_value = line.split(/:\s+/, 2)
+        if line_key == 'SOAPBOX'
+          if cabrillo_info[:soapbox]
+            if cabrillo_info[:soapbox].class.to_s == 'String'
+              cabrillo_info[:soapbox] = [cabrillo_info[:soapbox], line_value]
+            else
+              cabrillo_info[:soapbox] << line_value
+            end
+          else
+            cabrillo_info[:soapbox] = line_value
+          end
+        end
       end
 
       # TODO
