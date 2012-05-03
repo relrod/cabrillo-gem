@@ -70,7 +70,7 @@ class Cabrillo
     #
     # Returns an instance of Cabrillo.
     def parse(log_contents)
-      cabrillo_info = {}
+      cabrillo_info = Hash.new []
       log_contents.lines.each do |line|
         line = line.strip
 
@@ -79,32 +79,33 @@ class Cabrillo
 
         # Info that can only appear once.
         cabrillo_info.merge! split_basic_line(line, 'START-OF-LOG', :version)
-        cabrillo_info.merge! split_basic_line(line, 'CREATED-BY', :created_by)
-        cabrillo_info.merge! split_basic_line(line, 'CONTEST', :contest)
         cabrillo_info.merge! split_basic_line(line, 'CALLSIGN', :callsign)
-        cabrillo_info.merge! split_basic_line(line, 'CLAIMED-SCORE', :claimed_score)
+        cabrillo_info.merge! split_basic_line(line, 'CATEGORY-ASSISTED', :category_assisted, ['ASSISTED', 'NON-ASSISTED'])
+        cabrillo_info.merge! split_basic_line(line, 'CATEGORY-BAND', :category_band, ['ALL', '160M', '80M', '40M', '20M', '15M', '10M', '6M', '2M', '222', '432', '902', '1.2G', '2.3G', '3.4G', '5.7G', '10G', '24G', '47G', '75G', '119G', '142G', '241G', 'Light'])
+        cabrillo_info.merge! split_basic_line(line, 'CATEGORY-MODE', :category_mode, ['SSB', 'CW', 'RTTY', 'MIXED'])
+        cabrillo_info.merge! split_basic_line(line, 'CATEGORY-OPERATOR', :category_operator, ['SINGLE-OP', 'MULTI-OP', 'CHECKLOG'])
+        cabrillo_info.merge! split_basic_line(line, 'CATEGORY-POWER', :category_power, ['HIGH', 'LOW', 'QRP'])
+        cabrillo_info.merge! split_basic_line(line, 'CATEGORY-STATION', :category_station, ['FIXED', 'MOBILE', 'PORTABLE', 'ROVER', 'EXPEDITION', 'HQ', 'SCHOOL'])
+        cabrillo_info.merge! split_basic_line(line, 'CATEGORY-TIME', :category_time, ['6-HOURS', '12-HOURS', '24-HOURS'])
+        cabrillo_info.merge! split_basic_line(line, 'CATEGORY-TRANSMITTER', :category_transmitter, ['ONE', 'TWO', 'LIMITED', 'UNLIMITED', 'SWL'])
+        cabrillo_info.merge! split_basic_line(line, 'CATEGORY-OVERLAY', :category_overlay, ['ROOKIE', 'TB-WIRED', 'NOVICE-TECH', 'OVER-50'])
+        cabrillo_info.merge! split_basic_line(line, 'CLAIMED-SCORE', :claimed_score, [/\d+/])
         cabrillo_info.merge! split_basic_line(line, 'CLUB', :club)
+        cabrillo_info.merge! split_basic_line(line, 'CONTEST', :contest, ['AP-SPRINT', 'ARRL-10', 'ARRL-160', 'ARRL-DX-CW', 'ARRL-DX-SSB', 'ARRL-SS-CW', 'ARRL-SS-SSB', 'ARRL-UHF-AUG', 'ARRL-VHF-JAN', 'ARRL-VHF-JUN', 'ARRL-VHF-SEP', 'ARRL-RTTY', 'BARTG-RTTY', 'CQ-160-CW', 'CQ-160-SSB', 'CQ-WPX-CW', 'CQ-WPX-RTTY', 'CQ-WPX-SSB', 'CQ-VHF', 'CQ-WW-CW', 'CQ-WW-RTTY', 'CQ-WW-SSB', 'DARC-WAEDC-CW', 'DARC-WAEDC-RTTY', 'DARC-WAEDC-SSB', 'FCG-FQP', 'IARU-HF', 'JIDX-CW', 'JIDX-SSB', 'NA-SPRINT-CW', 'NA-SPRINT-SSB', 'NCCC-CQP', 'NEQP', 'OCEANIA-DX-CW', 'OCEANIA-DX-SSB', 'RDXC', 'RSGB-IOTA', 'SAC-CW', 'SAC-SSB', 'STEW-PERRY', 'TARA-RTTY'])
+        cabrillo_info.merge! split_basic_line(line, 'CREATED-BY', :created_by)
+        cabrillo_info.merge! split_basic_line(line, 'EMAIL', :email)
+        cabrillo_info.merge! split_basic_line(line, 'LOCATION', :location)
         cabrillo_info.merge! split_basic_line(line, 'NAME', :name)
+        cabrillo_info.merge! split_basic_line(line, 'ADDRESS', :address)
+        cabrillo_info.merge! split_basic_line(line, 'ADDRESS-CITY', :address_city)
+        cabrillo_info.merge! split_basic_line(line, 'ADDRESS-STATE-PROVINCE', :address_state_province)
+        cabrillo_info.merge! split_basic_line(line, 'ADDRESS-POSTALCODE', :address_postalcode)
+        cabrillo_info.merge! split_basic_line(line, 'ADDRESS-COUNTRY', :address_country)
 
 
-        # SOAPBOX comments - they can appear multiple times.
-        line_key, line_value = line.split(/:\s+/, 2)
-        if line_key == 'SOAPBOX'
-          if cabrillo_info[:soapbox]
-            if cabrillo_info[:soapbox].class.to_s == 'String'
-              cabrillo_info[:soapbox] = [cabrillo_info[:soapbox], line_value]
-            else
-              cabrillo_info[:soapbox] << line_value
-            end
-          else
-            cabrillo_info[:soapbox] = line_value
-          end
-        end
+        # TODO
+        # cabrillo_info[:contest] determines parsing format for QSO/QSC: lines.
       end
-
-      # TODO
-      # cabrillo_info[:contest] determines parsing format for QSO/QSC: lines.
-
       Cabrillo.new(cabrillo_info)
     end
 
@@ -124,15 +125,31 @@ class Cabrillo
     # line     - The String of log line to parse.
     # key      - The key to look for in the line.
     # hash_key - The key to use in the resulting Hash.
-    # 
+    #
+    # Throws an Exception if validators are given but the data does not match
+    #   one of them.
+    #
     # Returns a Hash of {:hash_key => value_from_parsed_line} or nil if the key
     #   wasn't found.
-    def split_basic_line(line, key, hash_key)
+    def split_basic_line(line, key, hash_key, validators = [])
       line_key, line_value = line.split(/:\s+/, 2)
-      
+
       case line_key
       when key
-        { hash_key => line_value.strip }
+        okay = true
+        unless validators.empty?
+          okay = false
+          validators.each do |v|
+            okay = true and break if v.class.to_s == 'Regexp' and line_value =~ v
+            okay = true and break if v.class.to_s == 'String' and line_value == v
+          end
+        end
+
+        if okay
+          { hash_key => line_value.strip }
+        elsif !validators.empty?
+          raise "Invalid value given for key `#{line_key}`."
+        end
       else
         { nil => nil }
       end
