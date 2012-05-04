@@ -59,9 +59,10 @@ across an invalid field. You can catch the exception and handle it accordingly.
 
 ## Overwriting Data
 
-If a log has a field twice, which isn't expected to occur more than once,
-the last occurance always wins, every time. This is because we `Hash.merge!`
-the field to a hash internally, and `Hash.merge!` does the following:
+If a log has a field multiple times, which isn't expected to occur more than
+once (as per the spec), the last occurance always wins, every time. This is
+because we `Hash.merge!` the field to a hash internally, and `Hash.merge!` does
+the following:
 
 ```ruby
 >> a = { :foo => "bar" }
