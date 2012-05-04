@@ -49,15 +49,15 @@ version of the spec. We follow [semver](http://semver.org), so with
 each backwards-incompatible change in the spec will result in us
 bumping the major version of the gem.
 
-We make a few (slight) differences in our parsing.
+We make a few (slight) differences in our parsing, which are described here:
 
-## Invalid Data
+### Invalid Data
 
 In fields which have a limited number of possible responses, we do some sanity
 checks as we parse, and we raise an exception and stop parsing if we come
 across an invalid field. You can catch the exception and handle it accordingly.
 
-## Overwriting Data
+### Overwriting Data
 
 If a log has a field multiple times, which isn't expected to occur more than
 once (as per the spec), the last occurance always wins, every time. This is
@@ -73,7 +73,7 @@ the following:
  => {:foo=>"buzz"} 
 ```
 
-## Comments
+### Comments
 
 To start with, **any line beginning with a `#` or `//` is parsed as a
 comment.**
