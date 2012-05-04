@@ -21,11 +21,19 @@ my_log = Cabrillo.parse_file(path_to_log)
 ### Examples
 
 ```ruby
+# Parse a logfile:
 >> log = Cabrillo.parse_file('../test/data/cabrillo1.cabrillo')
  => #<Cabrillo:0x00000002ea9c58 @version="3.0", @created_by="WavePower 1.0", @contest="WAEDC", @callsign="W8UPD", @claimed_score="1234", @club="University of Akron", @name="Ricky Elrod">
  
+# Convert it to a Hash:
 >> log.to_hash
- => {:version=>"3.0", :created_by=>"WavePower 1.0", :contest=>"WAEDC", :callsign=>"W8UPD", :claimed_score=>"1234", :club=>"University of Akron", :name=>"Ricky Elrod"} 
+ => {:version=>"3.0", :created_by=>"WavePower 1.0", :contest=>"WAEDC", :callsign=>"W8UPD", :claimed_score=>"1234", :club=>"University of Akron", :name=>"Ricky Elrod"}
+
+# Convert it to JSON using the stdlib JSON library:
+>> require 'json'
+ => true
+>> log.to_hash.to_json
+ => "{\"version\":\"3.0\",\"created_by\":\"WavePower 1.0\",\"contest\":\"WAEDC\",\"callsign\":\"W8UPD\",\"claimed_score\":\"1234\",\"club\":\"University of Akron\",\"name\":\"Ricky Elrod\"}"
 ```
 
 ## Generating log files
@@ -56,11 +64,11 @@ the last occurance always wins, every time. This is because we `Hash.merge!`
 the field to a hash internally, and `Hash.merge!` does the following:
 
 ```ruby
-1.9.3p0 :001 > a = { :foo => "bar" }
+>> a = { :foo => "bar" }
  => {:foo=>"bar"} 
-1.9.3p0 :002 > a.merge!({ :foo => "buzz" })
+>> a.merge!({ :foo => "buzz" })
  => {:foo=>"buzz"} 
-1.9.3p0 :003 > a
+>> a
  => {:foo=>"buzz"} 
 ```
 
