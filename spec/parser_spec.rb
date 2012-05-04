@@ -28,4 +28,82 @@ describe Cabrillo do
     log.soapbox.size.should == 2
     hashified_log[:soapbox].size.should == 2
   end
+
+  it "should raise an error if an invalid value is given for key: CATEGORY-ASSISTED" do
+    expect {
+      invalid_file = File.join(File.dirname(__FILE__), 'data', 'invalid', "category_assisted.cabrillo")
+      log = Cabrillo.parse_file(invalid_file)
+    }.to raise_error
+  end
+
+  it "should raise an error if an invalid value is given for key: CATEGORY-BAND" do
+    expect {
+      invalid_file = File.join(File.dirname(__FILE__), 'data', 'invalid', "category_band.cabrillo")
+      log = Cabrillo.parse_file(invalid_file)
+    }.to raise_error
+  end
+
+  it "should raise an error if an invalid value is given for key: CATEGORY-MODE" do
+    expect {
+      invalid_file = File.join(File.dirname(__FILE__), 'data', 'invalid', "category_mode.cabrillo")
+      log = Cabrillo.parse_file(invalid_file)
+    }.to raise_error
+  end
+
+  it "should raise an error if an invalid value is given for key: CATEGORY-OPERATOR" do
+    expect {
+      invalid_file = File.join(File.dirname(__FILE__), 'data', 'invalid', "category_operator.cabrillo")
+      log = Cabrillo.parse_file(invalid_file)
+    }.to raise_error
+  end
+
+  it "should raise an error if an invalid value is given for key: CATEGORY-POWER" do
+    expect {
+      invalid_file = File.join(File.dirname(__FILE__), 'data', 'invalid', "category_power.cabrillo")
+      log = Cabrillo.parse_file(invalid_file)
+    }.to raise_error
+  end
+
+  it "should raise an error if an invalid value is given for key: CATEGORY-STATION" do
+    expect {
+      invalid_file = File.join(File.dirname(__FILE__), 'data', 'invalid', "category_station.cabrillo")
+      log = Cabrillo.parse_file(invalid_file)
+    }.to raise_error
+  end
+
+  it "should raise an error if an invalid value is given for key: CATEGORY-TIME" do
+    expect {
+      invalid_file = File.join(File.dirname(__FILE__), 'data', 'invalid', "category_time.cabrillo")
+      log = Cabrillo.parse_file(invalid_file)
+    }.to raise_error
+  end
+
+  it "should raise an error if an invalid value is given for key: CATEGORY-TRANSMITTER" do
+    expect {
+      invalid_file = File.join(File.dirname(__FILE__), 'data', 'invalid', "category_transmitter.cabrillo")
+      log = Cabrillo.parse_file(invalid_file)
+    }.to raise_error
+  end
+
+  it "should raise an error if an invalid value is given for key: CATEGORY-OVERLAY" do
+    expect {
+      invalid_file = File.join(File.dirname(__FILE__), 'data', 'invalid', "category_overlay.cabrillo")
+      log = Cabrillo.parse_file(invalid_file)
+    }.to raise_error
+  end
+
+  it "should raise an error if an invalid value is given for key: CLAIMED-SCORE" do
+    expect {
+      invalid_file = File.join(File.dirname(__FILE__), 'data', 'invalid', "claimed_score.cabrillo")
+      log = Cabrillo.parse_file(invalid_file)
+    }.to raise_error
+  end
+
+  it "should raise an error if an invalid value is given for key: CONTEST" do
+    expect {
+      invalid_file = File.join(File.dirname(__FILE__), 'data', 'invalid', "contest.cabrillo")
+      log = Cabrillo.parse_file(invalid_file)
+    }.to raise_error
+  end
+
 end
