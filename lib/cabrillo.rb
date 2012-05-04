@@ -38,15 +38,21 @@ end
 class Cabrillo
   CABRILLO_VERSION = '3.0' # The current version of the spec, our default.
   
+  # Public: Creates an instance of Cabrillo from a Hash of log data
+  #
+  # options - A Hash which contains data from a cabrillo log
+  #
+  # Returns an instance of Cabrillo.
   def initialize(options = {})
-    @version       = options[:version] || CABRILLO_VERSION
-    @created_by    = options[:created_by]
-    @contest       = options[:contest]
-    @callsign      = options[:callsign]
-    @claimed_score = options[:claimed_score]
-    @club          = options[:club]
-    @name          = options[:name]
-    @soapbox       = options[:soapbox]
+    # Let all the given entries automagically become instance variables.
+    options.each do |key, value|
+      instance_variable_set("@#{key}", value)
+      this = class << self; self; end
+      this.class_eval { attr_accessor key }
+    end
+
+    # Defaults and sanity checks can go here if they need to.
+    @version = options[:version] || CABRILLO_VERSION
   end
 
   # Public: Return the collected data as a Hash.
@@ -70,7 +76,7 @@ class Cabrillo
     #
     # Returns an instance of Cabrillo.
     def parse(log_contents)
-      cabrillo_info = Hash.new []
+      cabrillo_info = Hash.new { |h,k| h[k] = [] }
       log_contents.lines.each do |line|
         line = line.strip
 
@@ -96,15 +102,26 @@ class Cabrillo
         cabrillo_info.merge! split_basic_line(line, 'EMAIL', :email)
         cabrillo_info.merge! split_basic_line(line, 'LOCATION', :location)
         cabrillo_info.merge! split_basic_line(line, 'NAME', :name)
-        cabrillo_info.merge! split_basic_line(line, 'ADDRESS', :address)
         cabrillo_info.merge! split_basic_line(line, 'ADDRESS-CITY', :address_city)
         cabrillo_info.merge! split_basic_line(line, 'ADDRESS-STATE-PROVINCE', :address_state_province)
         cabrillo_info.merge! split_basic_line(line, 'ADDRESS-POSTALCODE', :address_postalcode)
         cabrillo_info.merge! split_basic_line(line, 'ADDRESS-COUNTRY', :address_country)
 
+        # TODO: It would be great to remove some of the redundancy here.
+        address = split_basic_line(line, 'ADDRESS', :address)
+        cabrillo_info[:address] << address[:address] unless address.empty?
 
-        # TODO
-        # cabrillo_info[:contest] determines parsing format for QSO/QSC: lines.
+        soapbox = split_basic_line(line, 'SOAPBOX', :soapbox)
+        cabrillo_info[:soapbox] << soapbox[:soapbox] unless soapbox.empty?
+
+        club = split_basic_line(line, 'CLUB', :club)
+        cabrillo_info[:club] << club[:club] unless club.empty?
+
+        operators = split_basic_line(line, 'OPERATORS', :operators)
+        cabrillo_info[:operators] << club[:operators] unless operators.empty?
+
+        # TODO: cabrillo_info[:contest] determines parsing format for QSO/QSC:
+        # lines.
       end
       Cabrillo.new(cabrillo_info)
     end
