@@ -1,5 +1,7 @@
 # Cabrillo
 
+[![Build Status](https://secure.travis-ci.org/CodeBlock/cabrillo-gem.png?branch=master)](http://travis-ci.org/CodeBlock/cabrillo-gem)
+
 This library handles the parsing and generation of the Cabrillo ham radio
 logging format, commonly used by the ARRL for contesting. 
 
