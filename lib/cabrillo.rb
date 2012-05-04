@@ -134,8 +134,7 @@ class Cabrillo
     def split_basic_line(line, key, hash_key, validators = [])
       line_key, line_value = line.split(/:\s+/, 2)
 
-      case line_key
-      when key
+      if line_key == key
         okay = true
         unless validators.empty?
           okay = false
@@ -151,7 +150,7 @@ class Cabrillo
           raise "Invalid value given for key `#{line_key}`."
         end
       else
-        { nil => nil }
+        { }
       end
     end
   end
