@@ -7,6 +7,9 @@
 # Written by Ricky Elrod (github: @CodeBlock) and released an MIT license.
 # https://www.github.com/CodeBlock/cabrillo-gem
 
+$: << File.dirname(__FILE__)
+require "contest_validators"
+
 # TODO: Split these into their own gem because they are handy. :-)
 class String
   def to_hz
@@ -86,18 +89,18 @@ class Cabrillo
         # Info that can only appear once.
         cabrillo_info.merge! split_basic_line(line, 'START-OF-LOG', :version)
         cabrillo_info.merge! split_basic_line(line, 'CALLSIGN', :callsign)
-        cabrillo_info.merge! split_basic_line(line, 'CATEGORY-ASSISTED', :category_assisted, ['ASSISTED', 'NON-ASSISTED'])
-        cabrillo_info.merge! split_basic_line(line, 'CATEGORY-BAND', :category_band, ['ALL', '160M', '80M', '40M', '20M', '15M', '10M', '6M', '2M', '222', '432', '902', '1.2G', '2.3G', '3.4G', '5.7G', '10G', '24G', '47G', '75G', '119G', '142G', '241G', 'Light'])
-        cabrillo_info.merge! split_basic_line(line, 'CATEGORY-MODE', :category_mode, ['SSB', 'CW', 'RTTY', 'MIXED'])
-        cabrillo_info.merge! split_basic_line(line, 'CATEGORY-OPERATOR', :category_operator, ['SINGLE-OP', 'MULTI-OP', 'CHECKLOG'])
-        cabrillo_info.merge! split_basic_line(line, 'CATEGORY-POWER', :category_power, ['HIGH', 'LOW', 'QRP'])
-        cabrillo_info.merge! split_basic_line(line, 'CATEGORY-STATION', :category_station, ['FIXED', 'MOBILE', 'PORTABLE', 'ROVER', 'EXPEDITION', 'HQ', 'SCHOOL'])
-        cabrillo_info.merge! split_basic_line(line, 'CATEGORY-TIME', :category_time, ['6-HOURS', '12-HOURS', '24-HOURS'])
-        cabrillo_info.merge! split_basic_line(line, 'CATEGORY-TRANSMITTER', :category_transmitter, ['ONE', 'TWO', 'LIMITED', 'UNLIMITED', 'SWL'])
-        cabrillo_info.merge! split_basic_line(line, 'CATEGORY-OVERLAY', :category_overlay, ['ROOKIE', 'TB-WIRED', 'NOVICE-TECH', 'OVER-50'])
-        cabrillo_info.merge! split_basic_line(line, 'CLAIMED-SCORE', :claimed_score, [/\d+/])
+        cabrillo_info.merge! split_basic_line(line, 'CATEGORY-ASSISTED', :category_assisted, ContestValidators::CATEGORY_ASSISTED)
+        cabrillo_info.merge! split_basic_line(line, 'CATEGORY-BAND', :category_band, ContestValidators::CATEGORY_BAND)
+        cabrillo_info.merge! split_basic_line(line, 'CATEGORY-MODE', :category_mode, ContestValidators::CATEGORY_MODE)
+        cabrillo_info.merge! split_basic_line(line, 'CATEGORY-OPERATOR', :category_operator, ContestValidators::CATEGORY_OPERATOR)
+        cabrillo_info.merge! split_basic_line(line, 'CATEGORY-POWER', :category_power, ContestValidators::CATEGORY_POWER)
+        cabrillo_info.merge! split_basic_line(line, 'CATEGORY-STATION', :category_station, ContestValidators::CATEGORY_STATION)
+        cabrillo_info.merge! split_basic_line(line, 'CATEGORY-TIME', :category_time, ContestValidators::CATEGORY_TIME)
+        cabrillo_info.merge! split_basic_line(line, 'CATEGORY-TRANSMITTER', :category_transmitter, ContestValidators::CATEGORY_TRANSMITTER)
+        cabrillo_info.merge! split_basic_line(line, 'CATEGORY-OVERLAY', :category_overlay, ContestValidators::CATEGORY_OVERLAY)
+        cabrillo_info.merge! split_basic_line(line, 'CLAIMED-SCORE', :claimed_score, ContestValidators::CLAIMED_SCORE)
         cabrillo_info.merge! split_basic_line(line, 'CLUB', :club)
-        cabrillo_info.merge! split_basic_line(line, 'CONTEST', :contest, ['AP-SPRINT', 'ARRL-10', 'ARRL-160', 'ARRL-DX-CW', 'ARRL-DX-SSB', 'ARRL-SS-CW', 'ARRL-SS-SSB', 'ARRL-UHF-AUG', 'ARRL-VHF-JAN', 'ARRL-VHF-JUN', 'ARRL-VHF-SEP', 'ARRL-RTTY', 'BARTG-RTTY', 'CQ-160-CW', 'CQ-160-SSB', 'CQ-WPX-CW', 'CQ-WPX-RTTY', 'CQ-WPX-SSB', 'CQ-VHF', 'CQ-WW-CW', 'CQ-WW-RTTY', 'CQ-WW-SSB', 'DARC-WAEDC-CW', 'DARC-WAEDC-RTTY', 'DARC-WAEDC-SSB', 'FCG-FQP', 'IARU-HF', 'JIDX-CW', 'JIDX-SSB', 'NA-SPRINT-CW', 'NA-SPRINT-SSB', 'NCCC-CQP', 'NEQP', 'OCEANIA-DX-CW', 'OCEANIA-DX-SSB', 'RDXC', 'RSGB-IOTA', 'SAC-CW', 'SAC-SSB', 'STEW-PERRY', 'TARA-RTTY'])
+        cabrillo_info.merge! split_basic_line(line, 'CONTEST', :contest, ContestValidators::CONTEST)
         cabrillo_info.merge! split_basic_line(line, 'CREATED-BY', :created_by)
         cabrillo_info.merge! split_basic_line(line, 'EMAIL', :email)
         cabrillo_info.merge! split_basic_line(line, 'LOCATION', :location)
