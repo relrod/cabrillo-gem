@@ -1,6 +1,8 @@
 require File.join(File.dirname(__FILE__), '..', 'lib', 'cabrillo')
 
 describe Cabrillo do
+  before(:each) { Cabrillo.raise_on_invalid_data = true }
+
   it "should parse a valid file" do
     valid_file = File.join(File.dirname(__FILE__), 'data', 'valid_log.cabrillo')
     log = Cabrillo.parse_file(valid_file)
@@ -27,6 +29,16 @@ describe Cabrillo do
 
     log.soapbox.size.should == 2
     hashified_log[:soapbox].size.should == 2
+  end
+
+  it "should not raise an error on invalid data, if told not to." do
+    expect {
+      Cabrillo.raise_on_invalid_data = false
+      invalid_file = File.join(File.dirname(__FILE__), 'data', 'invalid', "category_assisted.cabrillo")
+      log = Cabrillo.parse_file(invalid_file)
+      log.version.should == "3.0"
+      log.category_assisted.should == "INVALID-DATA"
+    }.to_not raise_error
   end
 
   it "should raise an error if an invalid value is given for key: CATEGORY-ASSISTED" do

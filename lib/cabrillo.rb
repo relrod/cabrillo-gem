@@ -39,6 +39,8 @@ end
 # END TODO
 
 class Cabrillo
+  @raise_on_invalid_data = true
+  
   CABRILLO_VERSION = '3.0' # The current version of the spec, our default.
   
   # Public: Creates an instance of Cabrillo from a Hash of log data
@@ -70,6 +72,8 @@ class Cabrillo
   end
 
   class << self
+    attr_accessor :raise_on_invalid_data
+
     # Public: Parses a log (a string containing newlines) into a Cabrillo
     #         instance.
     #
@@ -164,14 +168,27 @@ class Cabrillo
           end
         end
 
-        if okay
+        if okay || !@raise_on_invalid_data
           { hash_key => line_value.strip }
-        elsif !validators.empty?
+        elsif !validators.empty? && @raise_on_invalid_data
           raise "Invalid value given for key `#{line_key}`."
         end
       else
         { }
       end
     end
+
+    # Private: Parses a QSO: line based on the contest type.
+    #
+    # qso_line - The Strnig containing the line of the logfile that we are
+    #   parsing. Starts with "QSO:"
+    # contest  - A String, the name of the contest that we are parsing.
+    #
+    # Returns a Hash containing the parsed result.
+    def parse_qso(qso_line, contest)
+      raise "Invalid contest: #{contest}"  unless ContestValidators::Contest.include? contest
+      
+    end
+
   end
 end

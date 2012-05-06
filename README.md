@@ -57,6 +57,16 @@ In fields which have a limited number of possible responses, we do some sanity
 checks as we parse, and we raise an exception and stop parsing if we come
 across an invalid field. You can catch the exception and handle it accordingly.
 
+Although we don't recommend it, if you absolutely must, you can disable
+exceptions being thrown for giving an invalid value, effectively disabling
+sanity checking when parsing. To do this, just set:
+
+```ruby
+Cabrillo.raise_on_invalid_data = false
+```
+
+before parsing a log file or string.
+
 ### Overwriting Data
 
 If a log has a field multiple times, which isn't expected to occur more than
