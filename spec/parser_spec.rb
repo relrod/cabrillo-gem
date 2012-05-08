@@ -31,6 +31,15 @@ describe Cabrillo do
     hashified_log[:soapbox].size.should == 2
   end
 
+  it "should properly parse common details out of QSO: lines" do
+    valid_file = File.join(File.dirname(__FILE__), 'data', 'valid_log.cabrillo')
+    log = Cabrillo.parse_file(valid_file)
+    log.qsos.size.should == 3
+    log.qsos.first[:mode].should == "PH"
+    log.qsos.first[:frequency].should == "14325"
+    log.qsos.first[:time].should be_an_instance_of(Time)
+  end
+
   it "should not raise an error on invalid data, if told not to." do
     expect {
       Cabrillo.raise_on_invalid_data = false

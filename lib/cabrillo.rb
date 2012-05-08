@@ -9,6 +9,8 @@
 
 $: << File.dirname(__FILE__)
 require "contest_validators"
+require 'date'
+require 'time'
 
 # TODO: Split these into their own gem because they are handy. :-)
 class String
@@ -127,8 +129,11 @@ class Cabrillo
         operators = split_basic_line(line, 'OPERATORS', :operators)
         cabrillo_info[:operators] << club[:operators] unless operators.empty?
 
-        # TODO: cabrillo_info[:contest] determines parsing format for QSO/QSC:
-        # lines.
+        # If we already parsed in a contest then we're good. If not, we don't
+        # know what to parse as, so skip.
+        if line.start_with? "QSO: " and cabrillo_info[:contest]
+          cabrillo_info[:qsos] << parse_qso(line, cabrillo_info[:contest])
+        end
       end
       Cabrillo.new(cabrillo_info)
     end
@@ -186,8 +191,20 @@ class Cabrillo
     #
     # Returns a Hash containing the parsed result.
     def parse_qso(qso_line, contest)
-      raise "Invalid contest: #{contest}"  unless ContestValidators::Contest.include? contest
+      raise "Invalid contest: #{contest}"  unless ContestValidators::CONTEST.include? contest
+      raise "Line does not start with 'QSO: '" unless qso_line.start_with? "QSO: "
+      qso_line.gsub!(/^QSO: /, "")
+
+      qso = {}
+
+      # In any and all cases, the first fields are: frequency, mode, date, time.
+      # Store the exchange/everything else into an array (using splat) for
+      #   later.
+      qso[:frequency], qso[:mode], date, time, *exchange = qso_line.split
       
+      # Parse the date and time into a Time object.
+      qso[:time] = Time.parse(DateTime.strptime("#{date} #{time}", '%Y-%m-%d %H%M').to_s)
+      qso
     end
 
   end
