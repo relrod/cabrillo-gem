@@ -193,8 +193,10 @@ class Cabrillo
     #
     # Returns a Hash containing the parsed result.
     def parse_qso(qso_line, contest)
-      raise InvalidDataError, "Invalid contest: #{contest}" unless ContestValidators::CONTEST.include? contest
-      raise InvalidDataError, "Line does not start with 'QSO: '" unless qso_line.start_with? "QSO: "
+      if @raise_on_invalid_data
+        raise InvalidDataError, "Invalid contest: #{contest}" unless ContestValidators::CONTEST.include? contest
+        raise InvalidDataError, "Line does not start with 'QSO: '" unless qso_line.start_with? "QSO: "
+      end
       qso_line.gsub!(/^QSO: /, "")
 
       qso = {}
