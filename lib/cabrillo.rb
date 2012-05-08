@@ -40,6 +40,8 @@ class Integer
 end
 # END TODO
 
+class InvalidDataError < StandardError; end
+
 class Cabrillo
   @raise_on_invalid_data = true
   
@@ -176,7 +178,7 @@ class Cabrillo
         if okay || !@raise_on_invalid_data
           { hash_key => line_value.strip }
         elsif !validators.empty? && @raise_on_invalid_data
-          raise "Invalid value given for key `#{line_key}`."
+          raise InvalidDataError, "Invalid value given for key `#{line_key}`."
         end
       else
         { }
@@ -191,8 +193,8 @@ class Cabrillo
     #
     # Returns a Hash containing the parsed result.
     def parse_qso(qso_line, contest)
-      raise "Invalid contest: #{contest}"  unless ContestValidators::CONTEST.include? contest
-      raise "Line does not start with 'QSO: '" unless qso_line.start_with? "QSO: "
+      raise InvalidDataError, "Invalid contest: #{contest}" unless ContestValidators::CONTEST.include? contest
+      raise InvalidDataError, "Line does not start with 'QSO: '" unless qso_line.start_with? "QSO: "
       qso_line.gsub!(/^QSO: /, "")
 
       qso = {}
