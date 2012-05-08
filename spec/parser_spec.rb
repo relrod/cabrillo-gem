@@ -40,6 +40,17 @@ describe Cabrillo do
     log.qsos.first[:time].should be_an_instance_of(Time)
   end
 
+  it "should handle parsing QSO: lines somewhat fast" do
+    started_at = Time.now.to_i
+    valid_file = File.join(File.dirname(__FILE__), 'data', 'long_log.cabrillo')
+    log = Cabrillo.parse_file(valid_file)
+    ended_at = Time.now.to_i
+    log.qsos.size.should == 75
+
+    # Should be able to parse 75 QSOs in under 1 second.
+    (ended_at - started_at).should be < 1
+  end
+
   it "should not raise an error on invalid data, if told not to." do
     expect {
       Cabrillo.raise_on_invalid_data = false
