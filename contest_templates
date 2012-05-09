@@ -3,8 +3,7 @@
 #CONTESTS: list of contests that use the template from their field in the cabrillo spec
 #QSO: example qso of the template
 #
-#Contests we do not have templates for: NCCC-CQP, RDXC, SAC-CW, SAC-SSB, TARA-RTTY
-
+#Contests we do not have templates for: NCCC-CQP (same as CA-QSO-PARTY???), SAC-CW, SAC-SSB, TARA-RTTY, CIS-DX, EA-RTTY, EA-WW-RTTY, EUCW160M, EU-PSK-DX, Fall Sprint (FISTS), GA-QSO-PARTY, HELVETIA, OH-QSO-PARTY, OK-DX-RTTY, ON-QSO-PARTY, PACC QC-QSO-PARTY, RDAC, REF-160M, REF-CW, REF-SSB, RSGB-* contests, RUSSIAN-RTTY, SMPDXContest, Sprint Sprint (FISTS), SR-MARATHON, Summer Sprint (FISTS), UBA-DX-SSB, UBA-DX-CW, Winter Sprint (FISTS)
 
 TEMPLATE: frequency mode date time TXcall TXserialNumber TXprecedence TXcheck TXarrlSection RXcall RXserialNumber RXprecedence RXcheck RXarrlSection
 CONTESTS: ARRL-SS-CW, ARRL-SS-SSB
@@ -15,7 +14,7 @@ CONTESTS: CQ-VHF, ARRL-VHF-JAN, ARRL-VHF-JUN, ARRL-VHF-SEP, ARRL-UHF-AUG
 QSO:    50 PH 1997-09-13 1804 NJ2L              FN12fr KB2DMK            FN12
 
 TEMPLATE: frequency mode date time TXcall TXrst TXexchange RXcall RXrst RXexchange transmitterID
-CONTESTS: CQ-160-CW, CQ-160-SSB, CQ-WPX-RTTY, CQ-WPX-CW, CQ-WPX-SSB CQ-WW-RTTY, CQ-WW-CW, CQ-WW-SSB, ARRL-DX-CW, ARRL-DX-SSB, IARU-HF, ARRL-10, ARRL-160, JIDX-CW, JIDX-SSB, STEW-PERRY, OCEANIA-XD-CW, OCEANIA-DX-SSB, AP-SPRINT, NEQP, 
+CONTESTS: CQ-160-CW, CQ-160-SSB, CQ-WPX-RTTY, CQ-WPX-CW, CQ-WPX-SSB CQ-WW-RTTY, CQ-WW-CW, CQ-WW-SSB, ARRL-DX-CW, ARRL-DX-SSB, IARU-HF, ARRL-10, ARRL-160, JIDX-CW, JIDX-SSB, STEW-PERRY, OCEANIA-XD-CW, OCEANIA-DX-SSB, AP-SPRINT, NEQP, ARRL-FIELD-DAY
 QSO:  3799 PH 1999-03-06 0711 HC8N          59  700    W1AW          59  CT     0
 
 TEMPLATE: frequency mode date time TXcall TXrst TXexchange RXcall RXrst RXexchange
@@ -34,4 +33,62 @@ TEMPLATE: frequency mode date time TXcall TXrst TXserialNumber TXtime RXcall RXr
 CONTESTS: BARTG-RTTY
 
 TEMPLATE: frequency mode date time TXcall TXrst TXlocation RXcall RXrst RXlocation
-CONTESTS: FCG-FQP
+CONTESTS: FCG-FQP, RAC, CANADA DAY, CANADA WINTER
+
+TEMPLATE: frequency mode date time TXcall TXrst TXserialNumber RXcall RXrst RXserialNumber
+CONTESTS: RDXC, EPC-PSK63, OK-OM-DX, UK-DX-RTTY
+QSO: 21010 CW 2004-03-20 1200 VE3DZ         59  001    RL3A          599 MA
+
+TEMPLATE: frequency mode date time TXcall TXrst TXzone TXtime RXcall RXrst RXzone RXtime
+CONTESTS: ANARTS-RTTY
+QSO: 14088 ry 2005-05-26 0104 VK2CTD       599  30  0104 VK2BQS     599  04  0001
+
+TEMPLATE: frequency mode date time TXcall TXrst TXexchange RXcall RXrst RXexchange
+CONTESTS: ARI-DX, EU-HF, DL-DX-RTTY, LZ DX, UKRAINIAN DX, WI-QSO-PARTY
+QSO: 14200 PH 2004-05-01 0711 RL3A          59  891    IK2HKT        59  BG    
+
+TEMPLATE: frequency mode date time TXcall TXserialNumber TXname RXcall RXserialNumber RXname
+CONTESTS: EU SPRINT, MI-QSO-PARTY
+QSO: 14046 CW 2003-12-06 2023 I2UIY         001 PAOLO      UR4PWC          1 ANDY  
+
+TEMPLATE: frequency mode date time TXcall TXrst TXcity1 TXcity2 TXcity3 TXcity4 RXcall RXrst RXcity1 RXcity2 RXcity3 RXcity4
+CONTESTS: IL QSO PARTY
+QSO: 14035 CW 2004-08-27 0327 N9OH/M        599 KANK,CALH,BROW,DKLB W4WOD/9       599 SCHY,SALI,ROCK,PULA 
+
+TEMPLATE: frequency mode date time TXcall TXrst TXage RXcall RXrst RXage
+CONTESTS: JARTS-WW-RTTY
+QSO:  3500 RY 2003-10-18 0428 JH1BIH       599 54     JA1YOB         599 99
+
+TEMPLATE: frequency mode date time TXcall TXname TXlocation RXcall RXname RXlocation transmitterID
+CONTESTS: NAQP-SSB, NAQP-CW, NAQP-RTTY
+QSO: 28000 CW 2003-01-11 1803 N5TJ            JEFF       TX  K6ZZ            BOB        CA  0
+
+TEMPLATE: frequency mode date time TXcall TXrst TXserialNumber TXlocation RXcall RXrst RXserialNumber RXlocation transmitterID
+CONTESTS: NRAU-BALTIC-CW, NRAU-BaLTIC-SSB
+
+TEMPLATE: frequency mode date time TXcall TXrst TXlicensedYear RXcall RXrst RXlicensedYear
+CONTESTS: SCC-RTTY
+QSO: 14088 RY 2003-08-30 1346 S57AW         599 1987   LA4SGA        599 1988   
+
+TEMPLATE: frequency mode date time TXcall TXrst TXexchange2 TXexchange2 RXcall RXrst RXexchange1 RXexchange2
+CONTESTS: SMP-AUG, SMP-MAY
+QSO:  3500 CW 2004-05-16 0710 SK3BG/P       579   05 JP82QK OH0/SM0AIG/P  559   04 JP90TG
+
+TEMPLATE: frequency mode date time TXcall TXrst TXgrid RXcall RXrst RXgrid transmitterID
+CONTESTS: TMC-RTTY
+QSO: 14000 RY 2004-03-06 1500 DK3VN         599 JO41   W2VJN         599 FN30
+
+TEMPLATE: frequency mode date time TXcall TXlocation TXserialNumber RXcall RXlocation RXserialNumber
+CONTESTS: UKR-CHAMP-RTTY
+QSO: 3500 RY 2003-03-01 2200 UT1HZM PO 001 UU8JQ SL 001
+
+TEMPLATE: frequency mode date time TXcall TXserialNumber TXqth RXcall RXserialNumber RXqth
+CONTESTS: Virginia QSO Party
+QSO: 14255 PH 2001­-10-­06 0711 K4NVA         001 LDN           W1AW          002 CT
+
+TEMPLATE: frequency mode date time TXcall TXrst TXserialNumber TXzone RXcall RXrst RXserialNumber RXzone
+CONTESTS: VOLTA-RTTY
+QSO:  3799 RY 1999-03-06 0711 HC8N          599  0004 05 W1AW          599  0026 05  002
+
+TEMPLATE: frequency mode date time TXcall TXituZoneNumber RXcall RXituZoneNumber
+CONTESTS: YUDXC
