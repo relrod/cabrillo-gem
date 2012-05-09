@@ -228,6 +228,17 @@ class Cabrillo
         qso[:exchange][:received][:rst] = exchange.shift
         qso[:exchange][:received][:exchange] = exchange.shift
         qso[:exchange][:received][:transmitter_id] = exchange.shift
+      when 'ARRL-SS-CW', 'ARRL-SS-SSB'
+        qso[:exchange][:sent][:serial_number] = exchange.shift
+        qso[:exchange][:sent][:precedence] = exchange.shift
+        qso[:exchange][:sent][:check] = exchange.shift
+        qso[:exchange][:sent][:arrl_section] = exchange.shift        
+
+        qso[:exchange][:received][:callsign] = exchange.shift
+        qso[:exchange][:received][:serial_number] = exchange.shift
+        qso[:exchange][:received][:precedence] = exchange.shift
+        qso[:exchange][:received][:check] = exchange.shift
+        qso[:exchange][:received][:arrl_section] = exchange.shift
       end
 
       qso

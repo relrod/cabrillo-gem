@@ -5,9 +5,9 @@
 #
 #Contests we do not have templates for: NCCC-CQP (same as CA-QSO-PARTY???), SAC-CW, SAC-SSB, TARA-RTTY, CIS-DX, EA-RTTY, EA-WW-RTTY, EUCW160M, EU-PSK-DX, Fall Sprint (FISTS), GA-QSO-PARTY, HELVETIA, OH-QSO-PARTY, OK-DX-RTTY, ON-QSO-PARTY, PACC QC-QSO-PARTY, RDAC, REF-160M, REF-CW, REF-SSB, RSGB-* contests, RUSSIAN-RTTY, SMPDXContest, Sprint Sprint (FISTS), SR-MARATHON, Summer Sprint (FISTS), UBA-DX-SSB, UBA-DX-CW, Winter Sprint (FISTS)
 
-TEMPLATE: frequency mode date time TXcall TXserialNumber TXprecedence TXcheck TXarrlSection RXcall RXserialNumber RXprecedence RXcheck RXarrlSection
-CONTESTS: ARRL-SS-CW, ARRL-SS-SSB
-QSO: 21042 CW 1997-11-01 2102 N5KO          3 B 74 STX K9ZO          2 A 69 IL
+#TEMPLATE: frequency mode date time TXcall TXserialNumber TXprecedence TXcheck TXarrlSection RXcall RXserialNumber RXprecedence RXcheck RXarrlSection
+#CONTESTS: ARRL-SS-CW, ARRL-SS-SSB
+#QSO: 21042 CW 1997-11-01 2102 N5KO          3 B 74 STX K9ZO          2 A 69 IL
 
 TEMPLATE: frequency mode date time TXcall TXgrid RXcall RXgrid
 CONTESTS: CQ-VHF, ARRL-VHF-JAN, ARRL-VHF-JUN, ARRL-VHF-SEP, ARRL-UHF-AUG

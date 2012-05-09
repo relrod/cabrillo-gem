@@ -154,4 +154,24 @@ describe Cabrillo do
     log.qsos.first[:exchange][:received][:exchange].should == "HARCT"
   end
 
+  it "should parse ARRL-SS-{CW,SSB} QSO lines successfully" do
+    valid_file = File.join(File.dirname(__FILE__), 'data', 'contests', 'ARRL-SS-CW.cabrillo')
+    log = Cabrillo.parse_file(valid_file)
+    log.qsos.size.should == 10
+    log.qsos.first[:mode].should == "CW"
+    log.qsos.first[:frequency].should == "21042"
+    log.qsos.first[:time].should be_an_instance_of(Time)
+    log.qsos.first[:exchange][:sent][:callsign].should == "N5KO"
+    log.qsos.first[:exchange][:sent][:serial_number].should == "1"
+    log.qsos.first[:exchange][:sent][:precedence].should == "B"
+    log.qsos.first[:exchange][:sent][:check].should == "74"
+    log.qsos.first[:exchange][:sent][:arrl_section].should == "SCV"
+
+    log.qsos.first[:exchange][:received][:callsign].should == "WA2VRR"
+    log.qsos.first[:exchange][:received][:serial_number].should == "1"
+    log.qsos.first[:exchange][:received][:precedence].should == "A"
+    log.qsos.first[:exchange][:received][:check].should == "74"
+    log.qsos.first[:exchange][:received][:arrl_section].should == "VA"
+  end
+
 end
