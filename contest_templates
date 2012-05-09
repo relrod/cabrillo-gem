@@ -1,0 +1,37 @@
+#Template Map by kg4sgp
+#TEMPLATE: template fields
+#CONTESTS: list of contests that use the template from their field in the cabrillo spec
+#QSO: example qso of the template
+#
+#Contests we do not have templates for: NCCC-CQP, RDXC, SAC-CW, SAC-SSB, TARA-RTTY
+
+
+TEMPLATE: frequency mode date time TXcall TXserialNumber TXprecedence TXcheck TXarrlSection RXcall RXserialNumber RXprecedence RXcheck RXarrlSection
+CONTESTS: ARRL-SS-CW, ARRL-SS-SSB
+QSO: 21042 CW 1997-11-01 2102 N5KO          3 B 74 STX K9ZO          2 A 69 IL
+
+TEMPLATE: frequency mode date time TXcall TXgrid RXcall RXgrid
+CONTESTS: CQ-VHF, ARRL-VHF-JAN, ARRL-VHF-JUN, ARRL-VHF-SEP, ARRL-UHF-AUG
+QSO:    50 PH 1997-09-13 1804 NJ2L              FN12fr KB2DMK            FN12
+
+TEMPLATE: frequency mode date time TXcall TXrst TXexchange RXcall RXrst RXexchange transmitterID
+CONTESTS: CQ-160-CW, CQ-160-SSB, CQ-WPX-RTTY, CQ-WPX-CW, CQ-WPX-SSB CQ-WW-RTTY, CQ-WW-CW, CQ-WW-SSB, ARRL-DX-CW, ARRL-DX-SSB, IARU-HF, ARRL-10, ARRL-160, JIDX-CW, JIDX-SSB, STEW-PERRY, OCEANIA-XD-CW, OCEANIA-DX-SSB, AP-SPRINT, NEQP, 
+QSO:  3799 PH 1999-03-06 0711 HC8N          59  700    W1AW          59  CT     0
+
+TEMPLATE: frequency mode date time TXcall TXrst TXexchange RXcall RXrst RXexchange
+CONTESTS: WAEDC, DARC-WAEDC-CW, DARC-WAEDC-SSB, DARC-WAEDC-RTTY
+QSO:  3799 PH 2003-03-23 0711 YB1AQS        59  700    DL8WPX        59  001  
+
+TEMPLATE: frequency mode date time TXcall TXserialNumber TXname TXlocation RXcall RXserialNumber RXname RXlocation
+CONTESTS: NA-SPRINT-CW, NA-SPRINT-SSB
+QSO: 14042 CW 1999-09-05 0000 N5TJ          1 JEFF       TX  J6TR          1 TREE       DX
+
+TEMPLATE: frequency mode date time TXcall TXrst TXserialNumber TXiotaDesignator RXcall RXrst RXserialNumber RXiotaDesignator
+CONTESTS: RSGB-IOTA
+QSO: 28000 CW 2002-07-27 1618 G3XTT         599 0006 EU-005 HA8TP         599 0067 ------
+
+TEMPLATE: frequency mode date time TXcall TXrst TXserialNumber TXtime RXcall RXrst RXserialNumber RXtime
+CONTESTS: BARTG-RTTY
+
+TEMPLATE: frequency mode date time TXcall TXrst TXlocation RXcall RXrst RXlocation
+CONTESTS: FCG-FQP
