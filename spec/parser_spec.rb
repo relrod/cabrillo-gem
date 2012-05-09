@@ -139,4 +139,19 @@ describe Cabrillo do
     }.to raise_error(InvalidDataError)
   end
 
+  it "should parse NEQP (and similar) QSO lines successfully" do
+    valid_file = File.join(File.dirname(__FILE__), 'data', 'valid_log.cabrillo')
+    log = Cabrillo.parse_file(valid_file)
+    log.qsos.size.should == 3
+    log.qsos.first[:mode].should == "PH"
+    log.qsos.first[:frequency].should == "14325"
+    log.qsos.first[:time].should be_an_instance_of(Time)
+    log.qsos.first[:exchange][:sent][:callsign].should == "N8SQL"
+    log.qsos.first[:exchange][:sent][:rst].should == "59"
+    log.qsos.first[:exchange][:sent][:exchange].should == "001"
+    log.qsos.first[:exchange][:received][:callsign].should == "KG4SGP"
+    log.qsos.first[:exchange][:received][:rst].should == "59"
+    log.qsos.first[:exchange][:received][:exchange].should == "HARCT"
+  end
+
 end

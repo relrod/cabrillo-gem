@@ -218,6 +218,18 @@ class Cabrillo
       # Transmitted callsign always comes first.
       qso[:exchange][:sent][:callsign] = exchange.shift
 
+      # Parse the rest of the exchange
+      case contest
+      when 'CQ-160-CW', 'CQ-160-SSB', 'CQ-WPX-RTTY', 'CQ-WPX-CW', 'CQ-WPX-SSB', 'CQ-WW-RTTY', 'CQ-WW-CW', 'CQ-WW-SSB', 'ARRL-DX-CW', 'ARRL-DX-SSB', 'IARU-HF', 'ARRL-10', 'ARRL-160', 'JIDX-CW', 'JIDX-SSB', 'STEW-PERRY', 'OCEANIA-XD-CW', 'OCEANIA-DX-SSB', 'AP-SPRINT', 'NEQP', 'ARRL-FIELD-DAY'
+        qso[:exchange][:sent][:rst] = exchange.shift
+        qso[:exchange][:sent][:exchange] = exchange.shift
+
+        qso[:exchange][:received][:callsign] = exchange.shift
+        qso[:exchange][:received][:rst] = exchange.shift
+        qso[:exchange][:received][:exchange] = exchange.shift
+        qso[:exchange][:received][:transmitter_id] = exchange.shift
+      end
+
       qso
     end
 
