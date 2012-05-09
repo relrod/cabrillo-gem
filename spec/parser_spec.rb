@@ -149,9 +149,12 @@ describe Cabrillo do
     log.qsos.first[:exchange][:sent][:callsign].should == "N8SQL"
     log.qsos.first[:exchange][:sent][:rst].should == "59"
     log.qsos.first[:exchange][:sent][:exchange].should == "001"
+
     log.qsos.first[:exchange][:received][:callsign].should == "KG4SGP"
     log.qsos.first[:exchange][:received][:rst].should == "59"
     log.qsos.first[:exchange][:received][:exchange].should == "HARCT"
+
+    log.qsos.last[:exchange][:received][:callsign].should == "W1AW"
   end
 
   it "should parse ARRL-SS-{CW,SSB} QSO lines successfully" do
@@ -172,6 +175,8 @@ describe Cabrillo do
     log.qsos.first[:exchange][:received][:precedence].should == "A"
     log.qsos.first[:exchange][:received][:check].should == "74"
     log.qsos.first[:exchange][:received][:arrl_section].should == "VA"
+
+    log.qsos.last[:exchange][:received][:callsign].should == "N4AF"
   end
 
 end
