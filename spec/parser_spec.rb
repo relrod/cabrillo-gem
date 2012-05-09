@@ -38,6 +38,7 @@ describe Cabrillo do
     log.qsos.first[:mode].should == "PH"
     log.qsos.first[:frequency].should == "14325"
     log.qsos.first[:time].should be_an_instance_of(Time)
+    log.qsos.keep_if { |q| q[:exchange][:sent][:callsign] == 'N8SQL' }.size.should == 3
   end
 
   it "should handle parsing QSO: lines somewhat fast" do

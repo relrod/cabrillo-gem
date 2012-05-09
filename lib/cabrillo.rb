@@ -199,7 +199,13 @@ class Cabrillo
       end
       qso_line.gsub!(/^QSO: /, "")
 
-      qso = {}
+      # Basic structure
+      qso = {
+        :exchange => {
+          :sent     => {},
+          :received => {}
+        }
+      }
 
       # In any and all cases, the first fields are: frequency, mode, date, time.
       # Store the exchange/everything else into an array (using splat) for
@@ -208,6 +214,10 @@ class Cabrillo
       
       # Parse the date and time into a Time object.
       qso[:time] = Time.parse(DateTime.strptime("#{date} #{time}", '%Y-%m-%d %H%M').to_s)
+
+      # Transmitted callsign always comes first.
+      qso[:exchange][:sent][:callsign] = exchange.shift
+
       qso
     end
 
